@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const bot = new Discord.Client();
+const fetch = require('node-fetch');
 require('dotenv').config();
 
 // environment variables add them later
@@ -19,24 +20,40 @@ bot.once('ready', () => {
     console.log('Majesto is up and running...');
 });
 
-// when someone types dick it responses with @mention
+// simple messages
 bot.on('message', message => {
+
+    // when someone types dick it responses with @mention
     if(message.content == 'dick') {
         message.reply('You think you\'re funny ? ');  // message.channel.send('pong');
     }
-});
 
-// Who are you ?
-bot.on('message', message => {
-
+    // Who are you ?
     if(/(@Majesto|Majesto)?\s*Who\s*are\s*you\s*\??/gi.test(message.content)) {
         message.reply("Je suis Majesto et je parle francais.");
     }
-})
+});
 
-// Borderlands
+// messages with simple fetching
+bot.on('message', async message => {
+
+    // Weather in Tyrnavos
+    if(message.content == `${prefix}weather`) {
+        const URL = 'https://api.openweathermap.org/data/2.5/weather?id=252848&APPID=7d8a1c597d7b9d3b30b5e42ef9fb621c&units=metric';
+        const response = await fetch(URL);
+        const json = await response.json();
+        let msg = `Weather in Tyrnavos city:
+        Temp: ${json.main.temp}, ${json.weather[0].description}
+        Perfect weather for gaming guys omg`;
+        message.channel.send(msg);
+    }
+});
+
+
+// messages with gifs
 bot.on('message', message => {
 
+    // Borderlands
     // Checks for borderlands
     if(/borderlands|bd2|bdtps/gi.test(message.content)) {
 
@@ -55,13 +72,9 @@ bot.on('message', message => {
         })
         .catch(err => console.log(err));
     }
-});
 
-// Game night
-bot.on('message', message => {
-
+    // Game night
     let regex = /(it's||its)(\s*)?(\w*)?(\s*)?(\w*)?gamenight/gi
-
     // Checks if it's gamenight
     if(regex.test(message.content)) {
 
@@ -82,10 +95,8 @@ bot.on('message', message => {
         })
         .catch(err => console.log(err));
     }
-});
 
-// Types a dog gif
-bot.on('message', message => {
+    // Types a dog gif
     if(message.content == `${prefix}dogif`) {
         giphy.search('gifs', {"q": "dog"})
         .then(response => {
