@@ -113,11 +113,8 @@ bot.on('message', message => {
 
 bot.on('message', message => {
     if(message.content == `${prefix}help_gamer`) {
-        message.channel.send(`!help \n dick  \n border-lands \n game-night \n !dogif`);
+        message.channel.send(`!help \n dick \n Who are you ? \n border-lands \n game-night \n !dogif`);
     }
 })
-
-
-
 
 bot.login(token);
