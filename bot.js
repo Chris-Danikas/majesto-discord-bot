@@ -1,20 +1,14 @@
 const Discord = require('discord.js');
 const bot = new Discord.Client();
+require('dotenv').config();
 
 // environment variables add them later
-const prefix = '!';
-const giphyToken = 'FJyt9La4sNWsICWCzL5GVmXb0b7uacWP';
+const prefix = process.env.PREFIX;
+const giphyToken = process.env.GIPHY_TOKEN;
+const token = process.env.DISCORD_TOKEN;
 
 // My expressions
-const expDogif =  [
-    "There you are, ",
-    "Here you go buddy...",
-    "Behold Gamers",
-    "Look what I found",
-    "Pretty cute",
-    "I love dogs",
-    "Je parle francais et here is a dogif"
-];
+const exps = require('./exps.js');
 
 // getting the giphy sdk to work, I think I could use the API instead
 let GphApiClient = require('giphy-js-sdk-core');
@@ -39,7 +33,7 @@ bot.on('message', (message) => {
         .then(response => {
 
             // Gets random expression 
-            let expRandom = Math.floor(Math.random() * expDogif.length);
+            let expRandom = Math.floor(Math.random() * exps.dogif.length);
 
             // Gets random gif from the searched ones
             let totalResponses = response.data.length;
@@ -50,7 +44,7 @@ bot.on('message', (message) => {
             console.log('total responses:', totalResponses);
             console.log('response index:', responseIndex);
 
-            message.channel.send(expDogif[expRandom], {
+            message.channel.send(exps.dogif[expRandom], {
                 files: [responseFinal.images.fixed_height.url]
             });
 
@@ -59,5 +53,4 @@ bot.on('message', (message) => {
     }
 });
 
-const token = 'NTk4ODg2NDI4OTE0NjE0Mjg4.XSdLGA.RGu-XyTrKGJdSNcz8rDrc3CoYKE';
 bot.login(token);
