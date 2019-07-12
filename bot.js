@@ -26,12 +26,30 @@ bot.on('message', message => {
     // when someone types dick it responses with @mention
     if(message.content == 'dick') {
         message.reply('You think you\'re funny ? ');  // message.channel.send('pong');
+        console.log(message);
+    }
+
+    // nice
+    if(message.content == 'nice') {
+        message.channel.send('ye');
     }
 
     // Who are you ?
     if(/(@Majesto|Majesto)?\s*Who\s*are\s*you\s*\??/gi.test(message.content)) {
         message.reply("Je suis Majesto et je parle francais.");
     }
+
+    // Twitter bot
+    let regex = /send([a-zA-Z0-9\s]*)(Twitter|twitter)(bot)?([a-zA-Z0-9\s]*)link/gi
+    if(regex.test(message.content)) {
+        message.reply("https://twitter.com/myDabBot1");
+    }
+
+    // reactions 
+    if(message.author.id == '396103155672154123'){
+        message.react('👍');
+    }
+
 });
 
 // messages with simple fetching
@@ -39,13 +57,17 @@ bot.on('message', async message => {
 
     // Weather in Tyrnavos
     if(message.content == `${prefix}weather`) {
-        const URL = 'https://api.openweathermap.org/data/2.5/weather?id=252848&APPID=7d8a1c597d7b9d3b30b5e42ef9fb621c&units=metric';
-        const response = await fetch(URL);
-        const json = await response.json();
-        let msg = `Weather in Tyrnavos city:
-        Temp: ${json.main.temp}, ${json.weather[0].description}
-        Perfect weather for gaming guys omg`;
-        message.channel.send(msg);
+        try {
+            const URL = 'https://api.openweathermap.org/data/2.5/weather?id=252848&APPID=7d8a1c597d7b9d3b30b5e42ef9fb621c&units=metric';
+            const response = await fetch(URL);
+            const json = await response.json();
+            let msg = `Weather in Tyrnavos city:
+            Temp: ${json.main.temp}, ${json.weather[0].description}
+            Perfect weather for gaming guys omg  :joy: :gun: :fire: `;
+            message.channel.send(msg);
+        } catch (err) {
+            message.channel.send(err);
+        }
     }
 });
 
@@ -123,8 +145,8 @@ bot.on('message', message => {
 });
 
 bot.on('message', message => {
-    if(message.content == `${prefix}help_gamer`) {
-        message.channel.send(`!help \n dick \n Who are you ? \n border-lands \n game-night \n !dogif`);
+    if(message.content == `${prefix}majesto`) {
+        message.channel.send(`!help \n dick \n Who-are-you ? \n nice \n send link Twitter bot \n !weather \n border-lands \n game-night \n !dogif`);
     }
 })
 
