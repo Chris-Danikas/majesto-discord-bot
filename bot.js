@@ -193,4 +193,4 @@ bot.on('message', message => {
     }
 });
 
-bot.login(token);
+bot.login(token); //it's gonna work
