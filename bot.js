@@ -169,27 +169,45 @@ bot.on('message', message => {
         return;
     }
 
-    if(message.content.toLowerCase().startsWith(`${prefix}play`)){
+    if(message.content.startsWith(`${prefix}play`)){
         
         // find the music channel
-        const VoiceChannel = message.guild.channels.find(channel => channel.id == '599268536845598740'); 
-        if (VoiceChannel != null) {                             // t-s 599268536845598740, g-o 599284395295113238
+        const VoiceChannel = message.guild.channels.find(channel => channel.id == '599284395295113238');
+        // t-s 599268536845598740, g-o 599284395295113238
+
+        // find the song to play
+        let urlRegEx = /(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+/g
+        let url = message.content.match(urlRegEx);
+        
+        if (url === null) {
+            message.channel.send('You should give me a better link.');
+        }
+        else if (VoiceChannel != null) {
             // Notification
             message.channel.send(`Joining ${VoiceChannel.name} channel to play music!`);
             VoiceChannel.join()
             .then(connection => {
                 console.log('Bot joined the Channel');
-                const stream = ytdl('https://www.youtube.com/watch?v=RkL-jPuHBMw', {filter: 'audioonly'});
+                // Stream
+                const stream = ytdl(url[0], {filter: 'audioonly'});
                 const dispatcher = connection.playStream(stream, streamOptions);
             })
             .catch();
         }
     }
+    // Stop the streaming
+    if(message.content == `${prefix}plz stop`){
+        
+        const VoiceChannel = message.guild.channels.find(channel => channel.id == '599284395295113238');
+        // t-s 599268536845598740, g-o 599284395295113238
+        VoiceChannel.leave();
+        message.channel.send('ok dude...');
+    }
 });
 
 bot.on('message', message => {
     if(message.content == `${prefix}majesto`) {
-        message.channel.send(`!help \n dick \n Who are you ? \n nice \n send Twitter bot link \n !weather \n borderlands \n gamenight \n !dogif`);
+        message.channel.send(`-majesto \n dick \n Who are you ? \n nice \n send Twitter bot link \n -weather \n borderlands \n gamenight \n -dogif \n -play <youtube link> \n -plz stop`);
     }
 });
 
