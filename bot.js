@@ -3,6 +3,9 @@ const bot = new Discord.Client();
 const fetch = require('node-fetch');
 require('dotenv').config();
 
+const ytdl = require('ytdl-core');
+const streamOptions = {seek: 0, volume: 1};
+
 // environment variables add them later
 const prefix = process.env.PREFIX;
 const giphyToken = process.env.GIPHY_TOKEN;
@@ -22,6 +25,11 @@ bot.once('ready', () => {
 
 // simple messages
 bot.on('message', message => {
+
+    // make him not reply on his own messages
+    if(message.author.id == '598886428914614288') {
+        return;
+    }
 
     // when someone types dick it responses with @mention
     if(message.content == 'dick') {
@@ -55,6 +63,11 @@ bot.on('message', message => {
 // messages with simple fetching
 bot.on('message', async message => {
 
+    // make him not reply on his own messages
+    if(message.author.id == '598886428914614288') {
+        return;
+    }
+
     // Weather in Tyrnavos
     if(message.content == `${prefix}weather`) {
         try {
@@ -75,6 +88,11 @@ bot.on('message', async message => {
 // messages with gifs
 bot.on('message', message => {
 
+    // make him not reply on his own messages
+    if(message.author.id == '598886428914614288') {
+        return;
+    }
+
     // Borderlands
     // Checks for borderlands
     if(/borderlands|bd2|bdtps/gi.test(message.content)) {
@@ -87,7 +105,7 @@ bot.on('message', message => {
             let responseIndex = Math.floor((Math.random() * 10) + 1 ) % totalResponses;
             let responseFinal = response.data[responseIndex];
 
-            message.channel.send("Border-lands is awesome dude...", {
+            message.channel.send("Borderlands is awesome dude...", {
                 files: [responseFinal.images.fixed_height.url]
             });
 
@@ -145,9 +163,34 @@ bot.on('message', message => {
 });
 
 bot.on('message', message => {
-    if(message.content == `${prefix}majesto`) {
-        message.channel.send(`!help \n dick \n Who-are-you ? \n nice \n send link Twitter bot \n !weather \n border-lands \n game-night \n !dogif`);
+   
+    // make him not reply on his own messages
+    if(message.author.id == '598886428914614288') {
+        return;
     }
-})
+
+    if(message.content.toLowerCase().startsWith(`${prefix}play`)){
+        
+        // find the music channel
+        const VoiceChannel = message.guild.channels.find(channel => channel.id == '599268536845598740'); 
+        if (VoiceChannel != null) {                             // t-s 599268536845598740, g-o 599284395295113238
+            // Notification
+            message.channel.send(`Joining ${VoiceChannel.name} channel to play music!`);
+            VoiceChannel.join()
+            .then(connection => {
+                console.log('Bot joined the Channel');
+                const stream = ytdl('https://www.youtube.com/watch?v=RkL-jPuHBMw', {filter: 'audioonly'});
+                const dispatcher = connection.playStream(stream, streamOptions);
+            })
+            .catch();
+        }
+    }
+});
+
+bot.on('message', message => {
+    if(message.content == `${prefix}majesto`) {
+        message.channel.send(`!help \n dick \n Who are you ? \n nice \n send Twitter bot link \n !weather \n borderlands \n gamenight \n !dogif`);
+    }
+});
 
 bot.login(token);

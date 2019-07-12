@@ -10,11 +10,11 @@ const exps =  {
     ],
     gamenight: [
         "Omg I cannot believe this it\'s gaming night",
-        "Game-night today Oh my fucking god",
+        "Gamenight today Oh my fucking god",
         "I cannot believe this is happenning boiz",
-        "Game-night, my favourite night gamers",
+        "Gamenight, my favourite night gamers",
         "Allright gamers this is EPIC",
-        "GAMERS ASSEMBLE, it's game-night",
+        "GAMERS ASSEMBLE, it's gamenight",
         "Je suis Majesto and I'm a GAMER"
     ]
 };
