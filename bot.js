@@ -53,7 +53,17 @@ bot.on('message', message => {
         message.reply("https://twitter.com/myDabBot1");
     }
 
-    // reactions 
+    // Test links
+    if(message.content == `${prefix}links`) {
+        message.reply('https://www.youtube.com/watch?v=RkL-jPuHBMw \n https://www.youtube.com/watch?v=EhGEGIBGLu8');
+    }
+
+    // cool
+    if(message.content == 'cool') {
+        message.channel.send('Yeah cool...');
+    }
+
+    // reactions
     if(message.author.id == '396103155672154123'){
         message.react('👍');
     }
@@ -71,6 +81,7 @@ bot.on('message', async message => {
     // Weather in Tyrnavos
     if(message.content == `${prefix}weather`) {
         try {
+            message.react('😀');
             const URL = 'https://api.openweathermap.org/data/2.5/weather?id=252848&APPID=7d8a1c597d7b9d3b30b5e42ef9fb621c&units=metric';
             const response = await fetch(URL);
             const json = await response.json();
@@ -80,6 +91,20 @@ bot.on('message', async message => {
             message.channel.send(msg);
         } catch (err) {
             message.channel.send(err);
+        }
+    }
+
+    // Quote of the day 
+    if(message.content == `${prefix}quote`) {
+        try {
+            message.react('😍');
+            const URL = 'http://quotes.rest/qod.json';
+            const response = await fetch(URL);
+            const json = await response.json();
+            let msg = ` Quote of the day: \n ${json.contents.quotes[0].quote}  \n   -${json.contents.quotes[0].author}`;
+            message.channel.send(msg);
+        } catch (err) {
+            console.log(err);
         }
     }
 });
@@ -100,6 +125,7 @@ bot.on('message', message => {
         giphy.search('gifs', {"q": "borderlands"})
         .then(response => {
 
+            message.react('💜');
             // Gets random gif from the searched ones
             let totalResponses = response.data.length;
             let responseIndex = Math.floor((Math.random() * 10) + 1 ) % totalResponses;
@@ -118,6 +144,7 @@ bot.on('message', message => {
     // Checks if it's gamenight
     if(regex.test(message.content)) {
 
+        message.react('😍');
         giphy.search('gifs', {"q": "gamer"})
         .then(response => {
 
@@ -184,6 +211,7 @@ bot.on('message', message => {
         }
         else if (VoiceChannel != null) {
             // Notification
+            message.react('👍');
             message.channel.send(`Joining ${VoiceChannel.name} channel to play music!`);
             VoiceChannel.join()
             .then(connection => {
@@ -198,6 +226,7 @@ bot.on('message', message => {
     // Stop the streaming
     if(message.content == `${prefix}plz stop`){
         
+        message.react('😉');
         const VoiceChannel = message.guild.channels.find(channel => channel.id == process.env.MUSIC_CHANNEL);
         // t-s 599268536845598740, g-o 599284395295113238
         VoiceChannel.leave();
@@ -207,7 +236,7 @@ bot.on('message', message => {
 
 bot.on('message', message => {
     if(message.content == `${prefix}majesto`) {
-        message.channel.send(`-majesto \n dick \n Who are you ? \n nice \n send Twitter bot link \n -weather \n borderlands \n gamenight \n -dogif \n -play <youtube link> \n -plz stop`);
+        message.channel.send(`-majesto \n dick \n Who are you ? \n nice \n send Twitter bot link \n -weather \n -quote \n borderlands \n gamenight \n -dogif \n -link \n -play <youtube link> \n -plz stop`);
     }
 });
 
