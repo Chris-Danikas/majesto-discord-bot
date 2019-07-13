@@ -172,7 +172,7 @@ bot.on('message', message => {
     if(message.content.startsWith(`${prefix}play`)){
         
         // find the music channel
-        const VoiceChannel = message.guild.channels.find(channel => channel.id == '599284395295113238');
+        const VoiceChannel = message.guild.channels.find(channel => channel.id == process.env.MUSIC_CHANNEL);
         // t-s 599268536845598740, g-o 599284395295113238
 
         // find the song to play
@@ -198,7 +198,7 @@ bot.on('message', message => {
     // Stop the streaming
     if(message.content == `${prefix}plz stop`){
         
-        const VoiceChannel = message.guild.channels.find(channel => channel.id == '599284395295113238');
+        const VoiceChannel = message.guild.channels.find(channel => channel.id == process.env.MUSIC_CHANNEL);
         // t-s 599268536845598740, g-o 599284395295113238
         VoiceChannel.leave();
         message.channel.send('ok dude...');
