@@ -63,6 +63,11 @@ bot.on('message', message => {
         message.channel.send('Yeah cool...');
     }
 
+    // avatar 
+    if(message.content == `${prefix}send my avatar`) {
+        message.reply(message.author.avatarURL);
+    }
+
     // reactions
     if(message.author.id == '396103155672154123'){
         message.react('👍');
@@ -198,38 +203,37 @@ bot.on('message', message => {
 
     if(message.content.startsWith(`${prefix}play`)){
         
-        // find the music channel
-        const VoiceChannel = message.guild.channels.find(channel => channel.id == process.env.MUSIC_CHANNEL);
-        // t-s 599268536845598740, g-o 599284395295113238
+        if(message.member.voiceChannel) {
 
-        // find the song to play
-        let urlRegEx = /(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+/g
-        let url = message.content.match(urlRegEx);
-        
-        if (url === null) {
-            message.channel.send('You should give me a better link.');
-        }
-        else if (VoiceChannel != null) {
-            // Notification
-            message.react('👍');
-            message.channel.send(`Joining ${VoiceChannel.name} channel to play music!`);
-            VoiceChannel.join()
-            .then(connection => {
-                console.log('Bot joined the Channel');
-                // Stream
-                const stream = ytdl(url[0], {filter: 'audioonly'});
-                const dispatcher = connection.playStream(stream, streamOptions);
-            })
-            .catch();
+            // find the song to play
+            let urlRegEx = /(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+/g
+            let url = message.content.match(urlRegEx);
+            
+            if (url === null) {
+                message.channel.send('You should give me a better link.');
+            }
+            else {
+                // Notification
+                message.react('👍');
+                // find and join the music channel
+                message.member.voiceChannel.join()
+                .then(connection => {
+                    message.channel.send(`Joined ${message.member.voiceChannel} to play music!`);
+                    // Stream
+                    const stream = ytdl(url[0], {filter: 'audioonly'});
+                    const dispatcher = connection.playStream(stream, streamOptions);
+                })
+                .catch(err => console.log(err));
+            }
+        } else {
+            message.reply('You need to join a voice channel first...');
         }
     }
     // Stop the streaming
     if(message.content == `${prefix}plz stop`){
-        
+        // react-leave-inform
         message.react('😉');
-        const VoiceChannel = message.guild.channels.find(channel => channel.id == process.env.MUSIC_CHANNEL);
-        // t-s 599268536845598740, g-o 599284395295113238
-        VoiceChannel.leave();
+        message.member.voiceChannel.leave();
         message.channel.send('ok dude...');
     }
 });
