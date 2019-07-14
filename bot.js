@@ -247,7 +247,7 @@ bot.on('message', message => {
 
 bot.on('message', message => {
     if(message.content == `${prefix}majesto`) {
-        message.channel.send(`-majesto \n dick \n Who are you ? \n nice \n send Twitter bot link \n -weather \n -quote \n borderlands \n gamenight \n -dogif \n -link \n -play <youtube link> \n -plz stop`);
+        message.channel.send(`-majesto \n dick \n Who are you ? \n nice \n -send my avatar \n -send your avatar \n send Twitter bot link \n -weather \n -quote \n borderlands \n gamenight \n -dogif \n -link \n -play <youtube link> \n -plz stop`);
     }
 });
 
