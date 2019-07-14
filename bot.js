@@ -63,9 +63,14 @@ bot.on('message', message => {
         message.channel.send('Yeah cool...');
     }
 
-    // avatar 
+    // user's avatar 
     if(message.content == `${prefix}send my avatar`) {
         message.reply(message.author.avatarURL);
+    }
+
+    // bot's avatar
+    if(message.content == `${prefix}send your avatar`) {
+        const attachment = new Attachment('./')
     }
 
     // reactions
