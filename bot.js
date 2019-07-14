@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const bot = new Discord.Client();
+
 const fetch = require('node-fetch');
 require('dotenv').config();
 
@@ -70,7 +71,8 @@ bot.on('message', message => {
 
     // bot's avatar
     if(message.content == `${prefix}send your avatar`) {
-        const attachment = new Attachment('./')
+        const attachment = new Discord.Attachment('./majesto.jpg');
+        message.channel.send(`That's me ${message.author}`, attachment);
     }
 
     // reactions
