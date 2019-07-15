@@ -22,6 +22,7 @@ giphy = GphApiClient(giphyToken);
 // runs only once when the bot starts
 bot.once('ready', () => {
     console.log('Majesto is up and running...');
+    bot.user.setActivity('javascript tutorials', {type: 'WATCHING'});
 });
 
 // simple messages
@@ -75,6 +76,17 @@ bot.on('message', message => {
         message.channel.send(`That's me ${message.author}`, attachment);
     }
 
+    // bot's activity 
+    if (message.content.startsWith(`${prefix}set`)) {
+        // configuring the arguements
+        let args = message.content.split('_');
+        if (args[1] == 'help') {
+            message.channel.send('-set_action_thing \n actions: PLAYING, WATCHING, LISTENING');
+        } else {
+            bot.user.setActivity(args[2], {type: args[1]});
+        }
+    }
+
     // reactions
     if(message.author.id == '396103155672154123'){
         message.react('👍');
@@ -117,6 +129,29 @@ bot.on('message', async message => {
             message.channel.send(msg);
         } catch (err) {
             console.log(err);
+        }
+    }
+
+    // Embed 
+    // https://discord.js.org/#/docs/main/stable/class/RichEmbed
+    // https://anidiots.guide/first-bot/using-embeds-in-messages
+    if (message.content.startsWith(`embed`)) {
+
+        // configuring the arguments
+        let args = message.content.split('-');
+
+        if (args[1] == 'help') {
+            message.channel.send(`${prefix}embed-serverID-channelID-title-Description
+            \n g-o 598644805865832467 , gamer-chat 598644806847168697
+            \n t-s 598882399786369064 , test-channel 598891140179165359`);
+        } else {
+            const embed = new Discord.RichEmbed()
+            .setTitle(args[3])
+            .setColor(0x246ce0)
+            .setDescription(args[4])
+            .setFooter('by skipperBlyat');
+
+            bot.guilds.get(args[1]).channels.get(args[2]).send(embed);
         }
     }
 });
@@ -247,7 +282,7 @@ bot.on('message', message => {
 
 bot.on('message', message => {
     if(message.content == `${prefix}majesto`) {
-        message.channel.send(`-majesto \n dick \n Who are you ? \n nice \n -send my avatar \n -send your avatar \n send Twitter bot link \n -weather \n -quote \n borderlands \n gamenight \n -dogif \n -link \n -play <youtube link> \n -plz stop`);
+        message.channel.send(`-majesto \n dick \n Who are you ? \n nice \n -set_help \n -send my avatar \n embed-help \n -send your avatar \n send Twitter bot link \n -weather \n -quote \n borderlands \n gamenight \n -dogif \n -link \n -play <youtube link> \n -plz stop`);
     }
 });
 
