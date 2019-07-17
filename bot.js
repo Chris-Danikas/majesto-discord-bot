@@ -87,6 +87,16 @@ bot.on('message', message => {
         }
     }
 
+    // na kanw to botaki na stelnei dika mou mnmta voithia
+    if (message.content == `${prefix}message_help`) {
+        message.channel.send(`${prefix}message_actualMessage_channelID_serverID`);
+    } else if (message.content.startsWith(`${prefix}message`)) {
+        let args = message.content.split('_');
+        bot.guilds.get(args[3]).channels.get(args[2]).send(args[1]);
+    }
+
+
+
     // reactions
     if(message.author.id == '396103155672154123'){
         message.react('👍');
@@ -272,17 +282,72 @@ bot.on('message', message => {
         }
     }
     // Stop the streaming
-    if(message.content == `${prefix}plz stop`){
+    if (message.content == `${prefix}plz stop`) {
         // react-leave-inform
         message.react('😉');
         message.member.voiceChannel.leave();
         message.channel.send('ok dude...');
     }
+
+    // sending available meme formats
+    if (message.content == `${prefix}memesf`) {
+        // fetching the memes and filtering those with the 2 boxes
+        fetch("https://api.imgflip.com/get_memes")
+        .then(response => response.json())
+        .then(data => {
+            let memes =data.data.memes.filter(meme => meme.box_count == 2);
+            let msg1 = '';
+            for(let i = 0; i < 40; i++) {
+                msg1 += memes[i].name +"  --id:" + memes[i].id + "\n";
+            }
+            let msg2 = '';
+            for(let i = 40; i < memes.length; i++) {
+                msg2 += memes[i].name + "  --id:" + memes[i].id + "\n";
+            }
+            message.channel.send(msg1);
+            message.channel.send(msg2);
+        })
+        .catch(err => console.log(err));
+    } else if (message.content == `${prefix}memes-help`) {
+
+        message.channel.send(`${prefix}meme-id-text1-text2 or \n${prefix}meme-id-text1-text2-channelID-serverID`);
+
+    } else if (message.content.startsWith(`${prefix}meme`)) {
+        
+        // doing the meme by this stupid website
+        let msg = message.content.split('-');
+        let id = msg[2];
+        let text0 = msg[3];
+        let text1 = msg[4];
+        let channelID = msg[5];
+        let serverID = msg[6];
+        fetch(`https://api.imgflip.com/caption_image?template_id=${id}&username=danikas&password=gamwthpanagia&text0=${text0}&text1=${text1}`, {
+        method: 'POST'
+        })
+        .then(res => res.json())
+        .then(data => {
+            let url = data.data.url;
+
+            if (channelID === undefined || serverID === undefined){
+                message.channel.send("LOL...", {
+                    files: [url]
+                });
+            } else {
+                bot.guilds.get(serverID).channels.get(channelID).send('lol', {
+                    files: [url]
+                });
+            }
+        })
+        .catch(err => {
+            console.log(err);
+            message.channel.send('Sth went wrong dear gamer, send me a better message');
+        });
+    }
 });
 
 bot.on('message', message => {
     if(message.content == `${prefix}majesto`) {
-        message.channel.send(`-majesto \n dick \n Who are you ? \n nice \n -set_help \n -send my avatar \n embed-help \n -send your avatar \n send Twitter bot link \n -weather \n -quote \n borderlands \n gamenight \n -dogif \n -link \n -play <youtube link> \n -plz stop`);
+        message.channel.send(`-majesto \n dick \n Who are you ? \n nice \n -set_help \n -send my avatar \n embed-help \n -send your avatar \n-memesf \n -memes-help \n -message_help\n send Twitter bot link \n -weather \n -quote \n borderlands \n gamenight \n -dogif \n -links \n -play <youtube link> \n -plz stop`);
     }
 });
 
