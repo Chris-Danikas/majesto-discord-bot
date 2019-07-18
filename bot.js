@@ -89,13 +89,20 @@ bot.on('message', message => {
 
     // na kanw to botaki na stelnei dika mou mnmta voithia
     if (message.content == `${prefix}message_help`) {
-        message.channel.send(`${prefix}message_actualMessage_channelID_serverID`);
+
+        message.channel.send(`${prefix}message_actualMessage_channelID_serverID or \n ${prefix}message_gamers_actualMessage`);
+
+    } else if (message.content.startsWith(`${prefix}message_gamers`)) {
+
+        let arts = message.content.split('_');
+        bot.guilds.get('598644805865832467').channels.get('598644806847168697').send(arts[2]);
+
     } else if (message.content.startsWith(`${prefix}message`)) {
+
         let args = message.content.split('_');
         bot.guilds.get(args[3]).channels.get(args[2]).send(args[1]);
+
     }
-
-
 
     // reactions
     if(message.author.id == '396103155672154123'){
@@ -310,7 +317,7 @@ bot.on('message', message => {
         .catch(err => console.log(err));
     } else if (message.content == `${prefix}memes-help`) {
 
-        message.channel.send(`${prefix}meme-id-text1-text2 or \n${prefix}meme-id-text1-text2-channelID-serverID`);
+        message.channel.send(`${prefix}meme-id-text1-text2 or \n${prefix}meme-id-text1-text2-channelID-serverID or \n${prefix}meme-id-text1-text2-gamers`);
 
     } else if (message.content.startsWith(`${prefix}meme`)) {
         
@@ -328,7 +335,11 @@ bot.on('message', message => {
         .then(data => {
             let url = data.data.url;
 
-            if (channelID === undefined || serverID === undefined){
+            if (channelID == 'gamers') {
+                bot.guilds.get('598644805865832467').channels.get('598644806847168697').send('lol', {
+                    files: [url]
+                })
+            } else if (channelID === undefined || serverID === undefined){
                 message.channel.send("LOL...", {
                     files: [url]
                 });
