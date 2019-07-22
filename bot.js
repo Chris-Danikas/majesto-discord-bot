@@ -354,6 +354,25 @@ bot.on('message', message => {
             message.channel.send('Sth went wrong dear gamer, send me a better message');
         });
     }
+
+    let regex = /majesto\s(you)?/gi; 
+
+    if (/suck|pussy|malakas|hope|swear|death|fuck|shit|fucking|bastard|bastarde|mpastarde|malaka|gamhmene|gamidi|pousth|pusth|poustara|arxidi|lougra|shut up|/gi.test(message)) {
+        if (regex.test(message)) {
+            if (/suck/gi.test(message)) {
+                message.channel.send('Unfortunately, my friend you are the one who sucks.');
+            } else if (/pussy/gi.test(message)) {
+                message.channel.send('I may be a pussy but I fucked your mum.');
+            } else if (/malakas?/gi.test(message)) {
+                message.channel.send('you a big blyat');
+            } else {
+
+            let expRandom = Math.floor(Math.random() * exps.swearing.length);
+            message.channel.send(exps.swearing[expRandom]);
+            }
+        
+        }
+    }   
 });
 
 bot.on('message', message => {
