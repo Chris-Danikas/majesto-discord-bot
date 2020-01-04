@@ -12,6 +12,9 @@ const prefix = process.env.PREFIX;
 const giphyToken = process.env.GIPHY_TOKEN;
 const token = process.env.DISCORD_TOKEN;
 
+const username = process.env.username;
+const password = process.env.password;
+
 // My expressions
 const exps = require('./exps.js');
 
@@ -280,6 +283,7 @@ bot.on('message', message => {
                     message.channel.send(`Joined ${message.member.voiceChannel} to play music!`);
                     // Stream
                     const stream = ytdl(url[0], {filter: 'audioonly'});
+                    stream.on('error', console.error);
                     const dispatcher = connection.playStream(stream, streamOptions);
                 })
                 .catch(err => console.log(err));
@@ -328,7 +332,7 @@ bot.on('message', message => {
         let text1 = msg[4];
         let channelID = msg[5];
         let serverID = msg[6];
-        fetch(`https://api.imgflip.com/caption_image?template_id=${id}&username=danikas&password=gamwthpanagia&text0=${text0}&text1=${text1}`, {
+        fetch(`https://api.imgflip.com/caption_image?template_id=${id}&username=${username}&password=${password}&text0=${text0}&text1=${text1}`, {
         method: 'POST'
         })
         .then(res => res.json())
