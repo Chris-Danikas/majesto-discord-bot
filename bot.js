@@ -21,11 +21,49 @@ const exps = require('./exps.js');
 let GphApiClient = require('giphy-js-sdk-core');
 giphy = GphApiClient(giphyToken);
 
+// doing the "kremala" thing
+// let onGame = false;
+
 // runs only once when the bot starts
 bot.once('ready', () => {
     console.log('Majesto is up and running...');
     bot.user.setActivity('javascript tutorials', {type: 'WATCHING'});
 });
+
+
+
+             // kremala tha epistrepsw me database
+// bot.on('message', message => {
+//     // make him not reply on his own messages
+//     if(message.author.id == '598886428914614288') {
+//         return;
+//     }
+
+//     // starting a kremala game
+//     if (message.content == `${prefix}kremala` && onGame == false) {
+//         onGame = true;
+//         console.log(onGame);
+    
+//         message.channel.send("Who's gonna play?")
+
+//         bot.on('message', message => {
+
+//             let regex = /@/i
+//             if(regex.test(message.content)) {
+//                 let players = message.content.split('@');
+//                 //console.log(message);
+//                 console.log(Discord.Client.fetch(396103155672154123));
+//             }
+//         });
+
+//     }
+
+//     if (message.content == `${prefix}kremala-stop`) {
+//         onGame = false;
+//         console.log(onGame);
+//     }
+
+// });
 
 // simple messages
 bot.on('message', message => {
@@ -127,8 +165,8 @@ bot.on('message', message => {
 
     //thanas gians melvin 50% pithanothta na antidrasei
     if(message.author.id == '559472028973924372' ||
-       message.author.id == '396104471819845644' ||
-       message.author.id == '397794278673219595' ){
+    message.author.id == '396104471819845644' ||
+    message.author.id == '397794278673219595' ){
         
         let chance0 = Math.floor((Math.random() * 10) + 1);
 
@@ -331,7 +369,7 @@ bot.on('message', message => {
 });
 
 bot.on('message', message => {
-   
+
     // make him not reply on his own messages
     if(message.author.id == '598886428914614288') {
         return;
@@ -458,6 +496,7 @@ bot.on('message', message => {
         message.channel.send(`-majesto \n dick \n Who are you ? \n nice \n -set_help \n -send my avatar \n embed-help \n -send your avatar \n-memesf \n -memes-help \n -message_help\n send Twitter bot link \n -weather \n -quote \n borderlands \n gamenight \n -dogif`);
     }
 });
+
 
 bot.login(token); //it's gonna work
 // testing
