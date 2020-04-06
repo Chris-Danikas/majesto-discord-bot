@@ -43,7 +43,7 @@ bot.on('message', message => {
 
     // nice
     if(message.content == 'nice') {
-        message.channel.send('ye');
+        message.channel.send('nice');
     }
 
     // Who are you ?
@@ -58,9 +58,9 @@ bot.on('message', message => {
     }
 
     // Test links
-    if(message.content == `${prefix}links`) {
-        message.reply('https://www.youtube.com/watch?v=RkL-jPuHBMw \n https://www.youtube.com/watch?v=EhGEGIBGLu8');
-    }
+    // if(message.content == `${prefix}links`) {
+    //     message.reply('https://www.youtube.com/watch?v=RkL-jPuHBMw \n https://www.youtube.com/watch?v=EhGEGIBGLu8');
+    // }
 
     // cool
     if(message.content == 'cool') {
@@ -106,9 +106,84 @@ bot.on('message', message => {
 
     }
 
-    // reactions
+    // reactions 
+    // egw  80% pithanothta na antidrasei
     if(message.author.id == '396103155672154123'){
-        message.react('👍');
+        
+        let chance = Math.floor((Math.random() * 10) + 1);
+
+        if (chance >= 1 && chance < 4) {
+            message.react('👍');
+        } else if ( chance >= 4 && chance <= 5 ) {
+            message.react('❤️');
+        } else if (chance == 6) {
+            message.react('😍');
+        } else if (chance == 7) {
+            message.react('😂');
+        } else if (chance == 8) {
+            message.react('🔫');
+        }
+    } 
+
+    //thanas gians melvin 50% pithanothta na antidrasei
+    if(message.author.id == '559472028973924372' ||
+       message.author.id == '396104471819845644' ||
+       message.author.id == '397794278673219595' ){
+        
+        let chance0 = Math.floor((Math.random() * 10) + 1);
+
+        if (chance0 > 5) {
+            let chance = Math.floor((Math.random() * 10) + 1);
+
+            if (chance >= 1 && chance < 4) {
+                message.react('👍');
+            } else if ( chance >= 4 && chance <= 5 ) {
+                message.react('❤️');
+            } else if (chance == 6) {
+                message.react('😍');
+            } else if (chance == 7) {
+                message.react('😂');
+            } else if (chance == 8) {
+                message.react('🔫');
+            } else if (chance > 8) {
+                message.react('😜');
+            }
+        }
+    }
+
+    //oi alloi 30% pithanothta na antidrasei
+    if(message.author.id == '687637936698556505' ||
+    message.author.id == '375361884422930433' ||
+    message.author.id == '310695157387362306' ){
+        
+        let chance0 = Math.floor((Math.random() * 10) + 1);
+
+        if (chance0 > 7) {
+            let chance = Math.floor((Math.random() * 10) + 1);
+
+            if (chance >= 1 && chance < 4) {
+                message.react('👍');
+            } else if ( chance >= 4 && chance <= 5 ) {
+                message.react('❤️');
+            } else if (chance == 6) {
+                message.react('😍');
+            } else if (chance == 7) {
+                message.react('😂');
+            } else if (chance == 8) {
+                message.react('🔫');
+            } else if (chance > 8) {
+                message.react('😜');
+            }
+        }
+    }
+
+    if(message.author.id == '694293910411018271') {
+
+        let chance = Math.floor((Math.random() * 10) + 1);
+
+        if (chance > 5) {
+            message.react('🤮');
+        }
     }
 
 });
@@ -380,7 +455,7 @@ bot.on('message', message => {
 
 bot.on('message', message => {
     if(message.content == `${prefix}majesto`) {
-        message.channel.send(`-majesto \n dick \n Who are you ? \n nice \n -set_help \n -send my avatar \n embed-help \n -send your avatar \n-memesf \n -memes-help \n -message_help\n send Twitter bot link \n -weather \n -quote \n borderlands \n gamenight \n -dogif \n -links \n -play <youtube link> \n -plz stop`);
+        message.channel.send(`-majesto \n dick \n Who are you ? \n nice \n -set_help \n -send my avatar \n embed-help \n -send your avatar \n-memesf \n -memes-help \n -message_help\n send Twitter bot link \n -weather \n -quote \n borderlands \n gamenight \n -dogif`);
     }
 });
 
