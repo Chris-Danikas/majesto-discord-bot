@@ -219,14 +219,19 @@ bot.on('message', message => {
 
         let chance = Math.floor((Math.random() * 10) + 1);
 
-        if (chance > 5) {
+        if (chance >= 1 && chance < 4) {
             message.react('🤮');
+        } else if ( chance >= 4 && chance <= 5 ) {
+            message.react('🤢');
+        } else if (chance == 6) {
+            message.react('🥵');
+        } else if (chance == 7) {
+            message.react('😡');
+        } else if (chance == 8) {
+            message.react('🤬');
+        } else if (chance > 8) {
+            message.react('💩');
         }
-    }
-
-    if (message.author.id == '694293910411018271' && message.content.startsWith('_play')) {
-        message.channel.send('_skip');
-        message.channel.send('sorry bro...');
     }
 
 });
