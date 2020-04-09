@@ -32,7 +32,7 @@ bot.once('ready', () => {
 
 
 
-             // kremala tha epistrepsw me database
+             // kremala tha epistrepsw me database   na xrhsimopoihsw return; 
 // bot.on('message', message => {
 //     // make him not reply on his own messages
 //     if(message.author.id == '598886428914614288') {
@@ -222,6 +222,11 @@ bot.on('message', message => {
         if (chance > 5) {
             message.react('🤮');
         }
+    }
+
+    if (message.author.id == '694293910411018271' && message.content.startsWith('_play')) {
+        message.channel.send('_skip');
+        message.channel.send('sorry bro...');
     }
 
 });
