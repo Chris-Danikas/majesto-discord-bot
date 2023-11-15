@@ -2,8 +2,6 @@
 ## commands: 
 ### -majesto  
 sends a message with all the commands  
-### dick  
-if you type dick it responses to you  
 ### Who are you ?  
 sends a message with his name  
 ### nice  
